@@ -1,0 +1,45 @@
+﻿@page "/"
+@using BlazorUIEvents.Data
+
+@inherits IndexBase
+
+
+@*BE SURE to review the Index.razor.cs file to clarify how this works behind the scenes.*@
+
+
+
+<h1>Blazor Event Response Demo</h1>
+
+<h4>To test this, copy the URL above into multiple browsers and windows (Chrome, Firefox, Etc)</h4>
+<h4>Then enter a word into the box below and hit the <em>Increment</em> button</h4>
+
+<div style="height: 10px"></div>
+
+<h5>BE SURE to review the Index.razor.cs file to clarify how this works behind the scenes.</h5>
+
+<div style="height: 10px"></div>
+
+<p>The <em>count</em> value below is synchronized to the CountValue property of the SingleService singleton</p>
+<p>The <em>Status Is:</em> value is collected from the event args of the SingleService singleton and rendered to all windows when an event is triggered</p>
+
+<div style="height: 10px"></div>
+
+<h4>Count Value: @Service.CountValue</h4>
+
+<h4>Status is: @status</h4>
+
+<div style="height: 10px"></div>
+
+<p> Type a word into the <em>Status to send</em> box below and click the <em>Increment</em> button</p>
+<p>The word you type will be sent to all active windows, and the count will be updated and synchronized in all windows</p>
+<EditForm Model="this">
+	<h6>Status to send: </h6><InputText @bind-Value="MessageToPass"></InputText>
+</EditForm>
+
+<div style="height: 10px"></div>
+
+<button class="btn btn-secondary" @onclick="@(() => Service.OnCountValueIncreased(this, new StringEventArgs() {Value = MessageToPass }))">Increment</button>
+
+<div style="height: 10px"></div>
+
+<p>NOTE: you have to manually click the <em>Increment</em> button, enter key doesn't work</p>
